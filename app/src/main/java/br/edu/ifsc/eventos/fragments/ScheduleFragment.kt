@@ -1,19 +1,13 @@
 package br.edu.ifsc.eventos.fragments
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import br.edu.ifsc.eventos.R
-import br.edu.ifsc.eventos.activities.TalkDetailActivity
 import br.edu.ifsc.eventos.entities.ScheduleAdapter
 import br.edu.ifsc.eventos.entities.Talk
 import br.edu.ifsc.eventos.services.RetrofitInitializer
@@ -43,7 +37,7 @@ class ScheduleFragment : Fragment() {
 
     private fun updateTalks(eventID: String, day: String, context: Context) {
         var call = RetrofitInitializer().eventsService().getEventDayTalks(eventID, day)
-        if(day.isNullOrEmpty())
+        if (day.isNullOrEmpty())
             call = RetrofitInitializer().eventsService().getEventTalks(eventID)
 
         call.enqueue(object : Callback<List<Talk>?> {

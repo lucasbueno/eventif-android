@@ -35,11 +35,11 @@ class EventActivity : AppCompatActivity() {
         updateBottomNavigation(eventID)
         navigation.setOnNavigationItemSelectedListener(navigationListener)
 
-        if(savedInstanceState == null)
+        if (savedInstanceState == null)
             navigation.selectedItemId = R.id.navigation_home
     }
 
-    private fun updateBottomNavigation(eventID: String):MutableList<Talk> {
+    private fun updateBottomNavigation(eventID: String): MutableList<Talk> {
 
         var talks = mutableListOf<Talk>()
         var call = RetrofitInitializer().eventsService().getEventTalks(eventID)
@@ -48,18 +48,19 @@ class EventActivity : AppCompatActivity() {
             override fun onResponse(call: Call<List<Talk>?>?, response: Response<List<Talk>?>?) {
                 response?.body()?.let(talks::addAll)
                 var days = mutableListOf<String>()
-                for(talk in talks)
-                    if(!days.contains(talk.day))
+                for (talk in talks)
+                    if (!days.contains(talk.day))
                         days.add(talk.day)
 
-                var menu  = navigation.menu
+                var menu = navigation.menu
                 var menuIndex = 1
-                for(day in 0..(days.size-1)){
+                for (day in 0..(days.size - 1)) {
                     menu.getItem(menuIndex).isEnabled = true
                     menu.getItem(menuIndex).title = days[day]
                     menuIndex++
                 }
             }
+
             override fun onFailure(call: Call<List<Talk>?>?,
                                    t: Throwable?) {
             }
@@ -67,9 +68,9 @@ class EventActivity : AppCompatActivity() {
         return talks
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean  {
-        if(item?.itemId == android. R.id.home) {
-                finish()
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item?.itemId == android.R.id.home) {
+            finish()
             return true
         }
         return super.onOptionsItemSelected(item)
@@ -80,7 +81,7 @@ class EventActivity : AppCompatActivity() {
         val transaction = supportFragmentManager.beginTransaction()
         val attachedFragment = supportFragmentManager.findFragmentById(R.id.layoutFragment)
 
-        if(attachedFragment != null)
+        if (attachedFragment != null)
             transaction.remove(attachedFragment)
 
         when (item.itemId) {

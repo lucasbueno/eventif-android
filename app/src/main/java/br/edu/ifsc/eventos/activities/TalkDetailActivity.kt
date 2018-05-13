@@ -1,7 +1,7 @@
 package br.edu.ifsc.eventos.activities
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import br.edu.ifsc.eventos.R
 
@@ -17,8 +17,8 @@ class TalkDetailActivity : AppCompatActivity() {
         title = talkName
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean  {
-        if(item?.itemId == android. R.id.home) {
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item?.itemId == android.R.id.home) {
             finish()
             return true
         }

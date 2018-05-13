@@ -13,12 +13,5 @@
     <string name="title_home">Info</string>
     <string name="eventImage">Imagem do evento</string>
     <string name="third_day">17/10</string>
-
-    <string-array name="schedule">
-        <item>Palestra inaugural</item>
-        <item>Palestra 1</item>
-        <item>Palestra 2</item>
-        <item>Palestra 3</item>
-        <item>Palestra 4</item>
-    </string-array>
+    <string name="API_KEY">AIzaSyBHASbwZxKP-WH47SbPq9VNic3YkivkaNI</string>
 </resources>

@@ -6,15 +6,15 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import br.edu.ifsc.eventos.entities.Event
 import br.edu.ifsc.eventos.R
+import br.edu.ifsc.eventos.entities.Event
 import br.edu.ifsc.eventos.services.RetrofitInitializer
 import kotlinx.android.synthetic.main.activity_select_event.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class SelectEventActivity : AppCompatActivity(){
+class SelectEventActivity : AppCompatActivity() {
     var events = mutableListOf<Event>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +39,7 @@ class SelectEventActivity : AppCompatActivity(){
                                     response: Response<List<Event>?>?) {
                 response?.body()?.let(events::addAll)
 
-                if(events.isEmpty())
+                if (events.isEmpty())
                     events.add(Event(0, getString(R.string.none_available_event), "", ""))
                 else
                     events.add(0, Event(0, getString(R.string.select_event), "", ""))
@@ -56,13 +56,13 @@ class SelectEventActivity : AppCompatActivity(){
 
     private fun updateEventSpinner(events: List<Event>) {
         val eventList = mutableListOf<String>()
-        for(event in events) eventList.add(event.name)
+        for (event in events) eventList.add(event.name)
         eventSpinner.adapter = ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_dropdown_item,
                 eventList)
     }
 
-    private val eventSpinnerListener = object: AdapterView.OnItemSelectedListener{
+    private val eventSpinnerListener = object : AdapterView.OnItemSelectedListener {
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             if (position != 0) {
                 val eventID = events[position].id.toString()
@@ -77,6 +77,7 @@ class SelectEventActivity : AppCompatActivity(){
                 startActivity(intent)
             }
         }
+
         override fun onNothingSelected(parent: AdapterView<*>?) {}
     }
 }
