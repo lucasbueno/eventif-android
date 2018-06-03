@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import br.edu.ifsc.eventos.entities.Event
 
-class KotlinHelper(context: Context) : SQLiteOpenHelper(context, DATABASENAME, null, DATABASEVERSION) {
+class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASENAME, null, DATABASEVERSION) {
 
     companion object {
         private val DATABASENAME = "eventif.db"

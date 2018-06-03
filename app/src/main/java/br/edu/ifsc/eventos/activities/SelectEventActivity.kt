@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import br.edu.ifsc.database.DatabaseHelper
 import br.edu.ifsc.eventos.R
 import br.edu.ifsc.eventos.entities.Event
 import br.edu.ifsc.eventos.services.RetrofitInitializer
@@ -32,6 +33,7 @@ class SelectEventActivity : AppCompatActivity() {
 
     private fun updateEventList() {
         events.clear()
+        val helper = DatabaseHelper(applicationContext)
         val call = RetrofitInitializer().eventsService().getEvents()
 
         call.enqueue(object : Callback<List<Event>?> {
@@ -39,16 +41,22 @@ class SelectEventActivity : AppCompatActivity() {
                                     response: Response<List<Event>?>?) {
                 response?.body()?.let(events::addAll)
 
-                if (events.isEmpty())
+                if (events.isEmpty()) {
                     events.add(Event(0, getString(R.string.none_available_event), "", ""))
-                else
+                }else {
+                    helper.addEvents(events)
                     events.add(0, Event(0, getString(R.string.select_event), "", ""))
+                }
                 updateEventSpinner(events)
             }
 
             override fun onFailure(call: Call<List<Event>?>?,
                                    t: Throwable?) {
-                events.add(Event(0, getString(R.string.none_available_event), "", ""))
+                events.addAll(helper.getEvents())
+                if(events.isEmpty())
+                    events.add(Event(0, getString(R.string.none_available_event), "", ""))
+                else
+                    events.add(0, Event(0, getString(R.string.select_event), "", ""))
                 updateEventSpinner(events)
             }
         })
