@@ -57,8 +57,8 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASENAME,
                     val name = cursor.getString(cursor.getColumnIndex("name"))
                     val description = cursor.getString(cursor.getColumnIndex("description"))
                     val contactInfo = cursor.getString(cursor.getColumnIndex("contactInfo"))
-                    val user = Event(id.toLong(), name, description, contactInfo)
-                    list.add(user)
+                    val event = Event(id.toLong(), name, description, contactInfo)
+                    list.add(event)
                 } while (cursor.moveToNext())
             }
         }

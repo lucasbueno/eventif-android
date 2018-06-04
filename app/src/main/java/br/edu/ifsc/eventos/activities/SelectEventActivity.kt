@@ -33,7 +33,7 @@ class SelectEventActivity : AppCompatActivity() {
 
     private fun updateEventList() {
         events.clear()
-        val helper = DatabaseHelper(applicationContext)
+        val database = DatabaseHelper(applicationContext)
         val call = RetrofitInitializer().eventsService().getEvents()
 
         call.enqueue(object : Callback<List<Event>?> {
@@ -44,7 +44,7 @@ class SelectEventActivity : AppCompatActivity() {
                 if (events.isEmpty()) {
                     events.add(Event(0, getString(R.string.none_available_event), "", ""))
                 }else {
-                    helper.addEvents(events)
+                    database.addEvents(events)
                     events.add(0, Event(0, getString(R.string.select_event), "", ""))
                 }
                 updateEventSpinner(events)
@@ -52,7 +52,7 @@ class SelectEventActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<List<Event>?>?,
                                    t: Throwable?) {
-                events.addAll(helper.getEvents())
+                events.addAll(database.getEvents())
                 if(events.isEmpty())
                     events.add(Event(0, getString(R.string.none_available_event), "", ""))
                 else
